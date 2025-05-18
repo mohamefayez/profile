@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بـشـمـهندس مـحـمـد🤨☝️</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      direction: rtl;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+      overflow-x: hidden;
+      color: #3498db;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4rem 2rem;
+      flex-wrap: wrap;
+    }
+
+    .info {
+      max-width: 60%;
+      animation: slideInLeft 1.5s ease;
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: #3498db;
+      text-shadow: 0 0 10px #3498db88;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #1abc9c;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      font-size: 2rem;
+      color: #3498db;
+      transition: 0.3s;
+    }
+
+    .social-links a:hover {
+      transform: scale(1.2);
+      color: #1abc9c;
+    }
+
+    .image-container {
+      position: relative;
+      width: 320px;
+      height: 480px;
+      margin-top: 2rem;
+      animation: slideInRight 1.5s ease;
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(-100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .image-container::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(52,152,219,0.2), transparent 70%);
+      filter: blur(30px);
+      z-index: 0;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 25px rgba(52,152,219,0.4);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+      }
+
+      .info {
+        max-width: 100%;
+      }
+
+      .image-container {
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="info">
+      <h1>بـشـمـهندس مـحـمـد☝️</h1>
+      <p class="subtitle">web developer</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/eng.mo7amedx?igsh=MW0yZ3p2NDBlZHlkMw%3D%3D&utm_source=qr" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@eng.mo7amedx?_t=ZS-8wSLsdVEjRg&_r=1" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://snapchat.com" target="_blank" title="Snapchat"><i class="fab fa-snapchat-ghost"></i></a>
+        <a href="https://wa.me/" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/share/1G1BTavvtg/?mibextid=wwXIfr" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+      </div>
+    </div>
+    <div class="image-container">
+      <img src="images/photo_2025-05-18_13-44-01.jpg" alt="بروفايل محمد">
+    </div>
+  </div>
+</body>
+</html>
