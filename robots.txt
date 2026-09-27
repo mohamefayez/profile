@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mohamefayez.github.io/profile/sitemap.xml

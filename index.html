@@ -1,148 +1,127 @@
-<!DOCTYPE html>
-<html lang="ar">
+﻿<!doctype html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>بـشـمـهندس مـحـمـد🤨☝️</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      direction: rtl;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
-      overflow-x: hidden;
-      color: #3498db;
-      animation: fadeIn 1.5s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 4rem 2rem;
-      flex-wrap: wrap;
-    }
-
-    .info {
-      max-width: 60%;
-      animation: slideInLeft 1.5s ease;
-    }
-
-    @keyframes slideInLeft {
-      from { transform: translateX(100px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      color: #3498db;
-      text-shadow: 0 0 10px #3498db88;
-    }
-
-    .subtitle {
-      font-size: 1.2rem;
-      color: #1abc9c;
-      margin-bottom: 1.5rem;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-    }
-
-    .social-links a {
-      font-size: 2rem;
-      color: #3498db;
-      transition: 0.3s;
-    }
-
-    .social-links a:hover {
-      transform: scale(1.2);
-      color: #1abc9c;
-    }
-
-    .image-container {
-      position: relative;
-      width: 320px;
-      height: 480px;
-      margin-top: 2rem;
-      animation: slideInRight 1.5s ease;
-    }
-
-    @keyframes slideInRight {
-      from { transform: translateX(-100px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    .image-container::before {
-      content: '';
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(52,152,219,0.2), transparent 70%);
-      filter: blur(30px);
-      z-index: 0;
-    }
-
-    .image-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-      position: relative;
-      z-index: 1;
-      box-shadow: 0 0 25px rgba(52,152,219,0.4);
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column-reverse;
-        align-items: center;
-        text-align: center;
-      }
-
-      .info {
-        max-width: 100%;
-      }
-
-      .image-container {
-        margin-bottom: 2rem;
-      }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e9e9e7">
+  <meta name="description" content="Mohamed Fayez — Full-stack web developer. Thoughtful interfaces, dependable systems, and web experiences built with care.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mohamed Fayez Portfolio">
+  <meta property="og:title" content="Mohamed Fayez — Full-Stack Developer">
+  <meta property="og:description" content="Thoughtful interfaces. Powerful foundations. Explore my skills and let’s build your next idea.">
+  <meta property="og:image" content="https://mohamefayez.github.io/profile/assets/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mohamed Fayez, Full-Stack Web Developer">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mohamed Fayez — Full-Stack Developer">
+  <meta name="twitter:description" content="Thoughtful interfaces. Powerful foundations. Built with care.">
+  <meta name="twitter:image" content="https://mohamefayez.github.io/profile/assets/social-preview.jpg">
+  <meta name="twitter:image:alt" content="Mohamed Fayez, Full-Stack Web Developer">
+  <title>Mohamed Fayez — Full-Stack Developer</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/portrait.webp" fetchpriority="high">
+  <link rel="stylesheet" href="style.css?v=portfolio-ready-6">
+  <script src="site-config.js?v=6" defer></script>
+  <script src="analytics.js?v=6" defer></script>
+  <script src="translations.js?v=portfolio-ready-6" defer></script>
+  <script src="script.js?v=portfolio-ready-6" defer></script>
+  <script src="contact-navigation.js?v=portfolio-ready-6" defer></script>
+<meta property="og:url" content="https://mohamefayez.github.io/profile/">
+<link rel="canonical" href="https://mohamefayez.github.io/profile/">
 </head>
 <body>
-  <div class="container">
-    <div class="info">
-      <h1>بـشـمـهندس مـحـمـد☝️</h1>
-      <p class="subtitle">web developer</p>
-      <div class="social-links">
-        <a href="https://www.instagram.com/eng.mo7amedx?igsh=MW0yZ3p2NDBlZHlkMw%3D%3D&utm_source=qr" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@eng.mo7amedx?_t=ZS-8wSLsdVEjRg&_r=1" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-        <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="https://snapchat.com" target="_blank" title="Snapchat"><i class="fab fa-snapchat-ghost"></i></a>
-        <a href="https://wa.me/" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://www.facebook.com/share/1G1BTavvtg/?mibextid=wwXIfr" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="header">
+    <div class="nav-inner wrap">
+      <a href="#" class="brand" aria-label="Mohamed Fayez home">mf<span>.</span></a>
+      <button class="language-toggle" type="button" aria-label="التبديل إلى العربية" lang="ar">العربية</button>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="navigation">Menu <span>+</span></button>
+      <nav id="navigation" aria-label="Main navigation">
+        <a href="#about">About</a><a href="#services">Services</a><a href="#expertise">Expertise</a>
+        <a href="#contact" class="button small">Let’s talk <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-top wrap"><p>Independent thinking. Full-stack building.</p><span>Design meets development.</span></div>
+      <h1 id="hero-title"><span class="sr-only">Mohamed Fayez — Full-Stack Web Developer</span><span class="name-track" aria-hidden="true"><span>Mohamed Fayez&nbsp;·&nbsp;</span><span>Mohamed Fayez&nbsp;·&nbsp;</span></span></h1>
+      <div class="hero-person">
+        <svg viewBox="0 0 1463 1075" role="img" aria-labelledby="portrait-title">
+          <title id="portrait-title">Portrait of Mohamed Fayez</title>
+          <defs><clipPath id="portrait-cutout"><path d="M140 1075 L154 1030 Q155 1010 168 982 L214 861 Q224 841 239 830 Q235 786 253 760 Q263 744 276 750 Q278 742 299 737 L515 665 Q550 640 580 610 L604 593 L608 546 Q599 520 592 488 Q578 493 575 464 Q562 443 564 400 Q568 387 581 394 L575 372 Q554 341 558 309 Q552 279 561 254 Q558 234 579 215 Q590 188 614 173 Q629 142 666 130 Q684 120 710 125 Q736 111 757 121 Q776 118 786 136 Q813 114 834 126 Q853 124 859 152 Q880 169 882 191 Q902 211 902 231 Q920 253 914 279 Q923 299 913 326 Q917 353 897 380 L884 404 Q900 399 902 413 Q900 450 885 472 Q885 500 866 499 Q856 531 845 545 L843 607 Q858 618 874 644 Q893 670 919 684 L1136 761 Q1149 766 1150 773 Q1164 763 1174 784 Q1183 802 1186 826 L1208 893 L1251 1009 Q1263 1040 1271 1075 Z"/></clipPath></defs>
+          <image href="assets/portrait.webp" width="1463" height="1075" clip-path="url(#portrait-cutout)"/>
+        </svg>
       </div>
-    </div>
-    <div class="image-container">
-      <img src="images/photo_2025-05-18_13-44-01.jpg" alt="بروفايل محمد">
-    </div>
+      <div class="hero-bottom wrap">
+        <div class="hero-intro"><p>Thoughtful interfaces.<br>Powerful foundations.<br>Built to work beautifully.</p><a class="text-link" href="#about">A little about me <span aria-hidden="true">↗</span></a></div>
+        <div class="hero-role"><p>Full-stack developer.<br>Detail-oriented thinker.</p><a href="assets/Mohamed-Fayez-CV.pdf" download>Download CV (PDF) <span aria-hidden="true">↓</span></a></div>
+      </div>
+      <div class="hero-foot wrap"><span>Scroll to explore</span><a href="#about" aria-label="Scroll to about section">↓</a><button class="motion-toggle" aria-pressed="false" aria-label="Pause name animation">Pause motion <span aria-hidden="true">Ⅱ</span></button></div>
+    </section>
+
+    <section id="about" class="about section wrap">
+      <div class="section-label"><span class="tiny-mark" aria-hidden="true">✳</span> A little about me</div>
+      <div class="about-main"><h2>I connect thoughtful<br>design with <span>powerful<br>development.</span></h2><div class="about-details"><p>I’m Mohamed, a full-stack web developer. I build fast, responsive applications with clean interfaces and dependable systems behind them.</p><p>From the first interaction to the last database query, I care about how every piece works together. Simple to use. Carefully built.</p></div><a class="text-link" href="#services">What I can do for you <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <div class="tech-band"><div class="wrap"><span class="tech-label">Tools behind the craft</span><div aria-label="Core technologies"><span>React</span><span>Next.js</span><span>TypeScript</span><span>Node.js</span><span>PostgreSQL</span></div></div></div>
+
+    <section id="services" class="services section wrap">
+      <div class="section-top"><div><p class="eyebrow">What I do</p><h2>From the first idea.<br>To the final detail.</h2></div><p>The interface. The logic. The launch.<br>One considered approach to the whole product.</p></div>
+      <div class="service-list">
+        <article class="service-row"><div class="service-visual" aria-hidden="true"><span class="outline-symbol">&lt;/&gt;</span><span class="visual-caption">Form & function</span></div><div class="service-copy"><span class="service-category">Interfaces</span><h3>Feels right.<br>On every screen.</h3><p>Responsive websites and interfaces that make complex ideas feel simple. Built around the people who use them.</p><ul class="plain-tags"><li>Websites & landing pages</li><li>Responsive UI</li><li>Design systems</li></ul></div><span class="service-arrow" aria-hidden="true">↗</span></article>
+        <article class="service-row"><div class="service-visual" aria-hidden="true"><span class="outline-symbol braces">{ }</span><span class="visual-caption">Connected by design</span></div><div class="service-copy"><span class="service-category">Full-stack applications</span><h3>Beautiful outside.<br>Capable inside.</h3><p>Web applications, dashboards, and platforms with a connected front end and back end. Every layer working together.</p><ul class="plain-tags"><li>Web applications</li><li>Dashboards</li><li>Authentication</li></ul></div><span class="service-arrow" aria-hidden="true">↗</span></article>
+        <article class="service-row"><div class="service-visual" aria-hidden="true"><div class="system-glyph"><i></i><i></i><i></i></div><span class="visual-caption">The foundation matters</span></div><div class="service-copy"><span class="service-category">Back-end & infrastructure</span><h3>Built on something<br>you can depend on.</h3><p>Structured APIs, thoughtful data models, and reliable integrations. A solid foundation for what comes next.</p><ul class="plain-tags"><li>APIs & integrations</li><li>Databases</li><li>Deployment</li></ul></div><span class="service-arrow" aria-hidden="true">↗</span></article>
+      </div>
+    </section>
+
+    <section id="expertise" class="expertise-band"><div class="section wrap">
+      <div class="section-top"><div><p class="eyebrow">My toolkit</p><h2>The right tools.<br>For the right reasons.</h2></div><p>A considered stack, from what you see<br>to everything that makes it work.</p></div>
+      <div class="expertise-content"><div class="tabs" role="tablist" aria-label="Skill categories" aria-orientation="vertical"><button id="tab-frontend" role="tab" aria-selected="true" aria-controls="skills-panel" data-category="frontend">Front-end <span>↗</span></button><button id="tab-backend" role="tab" aria-selected="false" tabindex="-1" aria-controls="skills-panel" data-category="backend">Back-end <span>↗</span></button><button id="tab-data" role="tab" aria-selected="false" tabindex="-1" aria-controls="skills-panel" data-category="data">Data & infrastructure <span>↗</span></button><button id="tab-quality" role="tab" aria-selected="false" tabindex="-1" aria-controls="skills-panel" data-category="quality">Quality & craft <span>↗</span></button></div><div id="skills-panel" role="tabpanel" aria-labelledby="tab-frontend" tabindex="0"><div class="skill-symbol" aria-hidden="true">&lt;/&gt;</div><h3>Interfaces that feel right.</h3><p>Responsive, accessible experiences with reusable components, considered interactions, and performance built in.</p><ul class="skill-list"><li>React</li><li>Next.js</li><li>TypeScript</li><li>Tailwind CSS</li><li>Framer Motion</li><li>Zustand</li></ul></div></div>
+    </div></section>
+
+    <section id="process" class="process section wrap"><div class="section-top"><div><p class="eyebrow">How I work</p><h2>Good work.<br>A clear process.</h2></div><p>Thoughtful at the start.<br>Thorough all the way through.</p></div><ol><li><span class="step-number">01</span><h3>Understand.</h3><p>Get to the heart of the idea. Define the people, the problem, and what success looks like.</p></li><li><span class="step-number">02</span><h3>Build.</h3><p>Connect design and architecture. Develop in focused steps with room to review and refine.</p></li><li><span class="step-number">03</span><h3>Refine.</h3><p>Test the details. Check accessibility and performance. Prepare every piece for launch.</p></li></ol></section>
+
+    <section id="faq" class="faq section wrap" aria-labelledby="faq-title">
+      <div class="section-top"><div><p class="eyebrow">Before we start</p><h2 id="faq-title">A few good<br>questions.</h2></div><p>Clear expectations.<br>From the first conversation.</p></div>
+      <div class="faq-list">
+        <details><summary>How do we get started?</summary><p>Send a short brief with your idea, the features you need, and any references. We can then discuss the scope and next steps on WhatsApp.</p></details>
+        <details><summary>How much does a project cost?</summary><p>There is no fixed price list. Pricing and payment arrangements are discussed for each project after the scope is clear. The budget field is a starting point for that conversation.</p></details>
+        <details><summary>How long will it take?</summary><p>The timeline depends on the scope, content, and integrations. Share your preferred deadline so we can discuss a realistic delivery plan before work begins.</p></details>
+        <details><summary>What about revisions and delivery?</summary><p>The number of revision rounds, review stages, and final deliverables will be agreed for your project before work begins.</p></details>
+        <details><summary>Is support included after launch?</summary><p>Support, maintenance, hosting, and any ongoing costs are discussed separately according to the project. No standard support period has been set.</p></details>
+      </div>
+    </section>
+
+    <section class="social-bar wrap" aria-label="Social profiles">
+      <div><p>Find me online.</p><span class="social-note">Profile links coming soon.</span></div>
+      <div class="social-links">
+        <a data-social="whatsapp" role="link" aria-disabled="true" title="WhatsApp link coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 11.6a8.4 8.4 0 0 1-12.5 7.3L3 20.3l1.4-4.7a8.4 8.4 0 1 1 16-4Z"/><path d="M8.2 7.5c-.7.7-.8 1.6-.2 2.9 1.1 2.4 2.8 4 5.4 4.9 1.2.4 2.2-.1 2.6-1l-2.5-1.4-1 1c-1.7-.7-2.8-1.8-3.4-3.3l1-1-1.4-2.5Z"/></svg><span>WhatsApp</span><span class="social-arrow" aria-hidden="true">↗</span></a>
+        <a data-social="instagram" role="link" aria-disabled="true" title="Instagram link coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg><span>Instagram</span><span class="social-arrow" aria-hidden="true">↗</span></a>
+        <a data-social="tiktok" role="link" aria-disabled="true" title="TikTok link coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v12.5a5.5 5.5 0 1 1-5-5.5v3a2.5 2.5 0 1 0 2 2.5V3h3c.4 2.7 2 4.3 5 4.5v3c-2.1-.2-3.7-.9-5-2.1"/></svg><span>TikTok</span><span class="social-arrow" aria-hidden="true">↗</span></a>
+        <a data-social="facebook" role="link" aria-disabled="true" title="Facebook link coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 21v-8h3l.5-3h-3.5V8c0-1 .5-1.5 1.5-1.5h2V3.2L15.5 3C12.3 3 11 5 11 7.5V10H8v3h3v8"/></svg><span>Facebook</span><span class="social-arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+    <section id="contact" class="contact"><div class="wrap contact-inner"><div class="contact-copy"><p class="eyebrow">Your next idea starts here</p><h2>Let’s build<br>something<br>that matters<span>.</span></h2><p>A new website. A useful product.<br>A better experience. Tell me about it.</p><p class="contact-note" id="contact-note">Your details open as a WhatsApp draft. Review it and press Send there.</p></div><form id="contact-form"><label for="name">Your name</label><input enterkeyhint="next" id="name" name="name" autocomplete="name" placeholder="Alex Morgan" required maxlength="100"><label for="email">Your email</label><input id="email" name="email" type="email" inputmode="email" autocapitalize="none" spellcheck="false" autocomplete="email" placeholder="alex@company.com" required maxlength="254"><div class="brief-fields">
+<div class="brief-field"><label for="project-type">Project type</label><select id="project-type" name="project-type"><option value="discuss">Let's figure it out together</option><option value="website">Website / landing page</option><option value="application">Web application</option><option value="dashboard">Dashboard</option><option value="improvement">Improve an existing site</option></select></div>
+<div class="brief-field"><label for="budget">Approximate budget</label><select id="budget" name="budget"><option value="discuss">Let's discuss</option><option value="under-10k">Under EGP 10,000</option><option value="10k-25k">EGP 10,000–25,000</option><option value="25k-50k">EGP 25,000–50,000</option><option value="over-50k">Over EGP 50,000</option></select></div>
+<div class="brief-field"><label for="timeline">Preferred timeline</label><select id="timeline" name="timeline"><option value="flexible">Flexible / let's discuss</option><option value="month">Within a month</option><option value="quarter">Within 1–3 months</option><option value="exploring">Just exploring</option></select></div>
+</div><p class="brief-hint">A starting point for our conversation. This is not a quote or a confirmed delivery date.</p><label for="message">What are you thinking?</label><textarea id="message" name="message" rows="4" placeholder="A little about your idea, timeline, and goals…" required maxlength="1500"></textarea><button class="button" type="submit" id="contact-submit">Continue to WhatsApp <span aria-hidden="true">↘</span></button><p id="form-status" role="status" aria-live="polite"></p></form></div><footer class="wrap"><a href="#" class="footer-brand">Mohamed Fayez</a><span>© <span id="year">2026</span> Mohamed Fayez</span><a href="#">Back to top ↑</a></footer></section>
+  </main>
+  <button class="back-to-top" type="button" aria-label="Back to top" hidden>↑</button>
+  <div class="bottom-socials" role="group" aria-label="Social media links">
+    <a href="https://wa.me/201018351183" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 11.6a8.4 8.4 0 0 1-12.5 7.3L3 20.3l1.4-4.7a8.4 8.4 0 1 1 16-4Z"/><path d="M8.2 7.5c-.7.7-.8 1.6-.2 2.9 1.1 2.4 2.8 4 5.4 4.9 1.2.4 2.2-.1 2.6-1l-2.5-1.4-1 1c-1.7-.7-2.8-1.8-3.4-3.3l1-1-1.4-2.5Z"/></svg></a>
+    <a href="https://www.instagram.com/eng.mo7amedx?stkn=eDhmM3o0am52Nzcy" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg></a>
+    <a href="https://www.tiktok.com/@eng.mo7amedx" target="_blank" rel="noopener noreferrer" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v12.5a5.5 5.5 0 1 1-5-5.5v3a2.5 2.5 0 1 0 2 2.5V3h3c.4 2.7 2 4.3 5 4.5v3c-2.1-.2-3.7-.9-5-2.1"/></svg></a>
+    <a href="https://www.facebook.com/share/1F6X27PC1a/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 21v-8h3l.5-3h-3.5V8c0-1 .5-1.5 1.5-1.5h2V3.2L15.5 3C12.3 3 11 5 11 7.5V10H8v3h3v8"/></svg></a>
   </div>
 </body>
 </html>
+
+
