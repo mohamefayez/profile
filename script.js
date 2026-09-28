@@ -121,7 +121,7 @@ document.addEventListener('portfolio:language', updateMotion);
 
 // Supply the owner's exact profile URLs here. Empty entries remain visibly unavailable.
 const socialLinks = {
-  whatsapp: 'https://wa.me/201018351183',
+  whatsapp: 'https://wa.me/201018531183',
   instagram: 'https://www.instagram.com/eng.mo7amedx?stkn=eDhmM3o0am52Nzcy',
   tiktok: 'https://www.tiktok.com/@eng.mo7amedx',
   facebook: 'https://www.facebook.com/share/1F6X27PC1a/?mibextid=wwXIfr'
