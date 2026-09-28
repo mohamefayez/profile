@@ -49,6 +49,11 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-weight:600}p{font-size:17px;line-height:1.
 @media(max-width:760px){.scroll-motion-ready [data-scroll="heading"],.scroll-motion-ready [data-scroll="step"]{transform:translateY(calc((1 - var(--p)) * 22px));}.scroll-motion-ready.scroll-motion-reduced [data-scroll]{transform:none}}
 @media print{.reading-progress{display:none}.scroll-motion-ready [data-scroll],.scroll-motion-ready .about h2 .scroll-word{opacity:1;transform:none}.name-track{animation:none}}
 
+/* Transparent suit portrait stays in front of the rightward name loop. */
+.hero-person{height:calc(100% - 170px);width:auto;max-width:none;aspect-ratio:1122/1402;bottom:58px;left:50%}
+.hero-person svg{height:100%;width:100%;overflow:visible}
+@media(max-width:760px){.hero-person{height:calc(100% - 300px);bottom:170px;left:50%}}
+
 /* Questions and project brief: native controls remain keyboard and touch accessible. */
 .faq{border-top:1px solid #333336}
 .faq-list{max-width:880px;margin-inline-start:auto}
