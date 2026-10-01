@@ -40,6 +40,7 @@ document.addEventListener('portfolio:language', updateMotion);
   add('.section-top', 'heading');
   add('.service-visual', 'media');
   add('.service-copy', 'copy');
+  add('.project-card', 'panel');
   add('.expertise-content', 'panel');
   add('.process li', 'step');
   add('.contact-copy', 'heading');
@@ -126,6 +127,20 @@ const socialLinks = {
   tiktok: 'https://www.tiktok.com/@eng.mo7amedx',
   facebook: 'https://www.facebook.com/share/1F6X27PC1a/?mibextid=wwXIfr'
 };
+function updateProjectLinks() {
+  document.querySelectorAll('.project-card').forEach(card => {
+    const title = card.querySelector('h3').textContent;
+    const url = new URL(socialLinks.whatsapp);
+    url.searchParams.set('text', i18n.language === 'ar'
+      ? `مرحبًا محمد، أحب أعرف أكثر عن مشروع ${title}.`
+      : `Hi Mohamed, I'd like to know more about your ${title}.`);
+    const link = card.querySelector('.project-link');
+    link.href = url.href;
+    link.setAttribute('aria-label', i18n.language === 'ar' ? `اسألني عن ${title} عبر واتساب` : `Ask about ${title} on WhatsApp`);
+  });
+}
+updateProjectLinks();
+document.addEventListener('portfolio:language', updateProjectLinks);
 document.querySelectorAll('[data-social]').forEach(link => {
   const url = socialLinks[link.dataset.social];
   if (!url) return;

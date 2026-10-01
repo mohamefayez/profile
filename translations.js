@@ -1,6 +1,16 @@
 // English markup remains the no-JavaScript fallback; Arabic is applied to the same elements.
 (() => {
   const content = [
+    ['nav a[href="#projects"]', 'المشاريع'],
+    ['#projects .eyebrow', 'من أعمالي'], ['#projects-title', 'مشاريع طوّرتها.'],
+    ['#projects .section-top > p', 'من المانجا إلى المتاجر الإلكترونية.<br>تعرّف على بعض أعمالي.'],
+    ['[data-project="manga"] .project-type', 'موقع ويب'], ['#project-manga-title', 'موقع المانجا'],
+    ['[data-project="manga"] .project-description', 'مشروع ويب مخصص للمانجا.'],
+    ['[data-project="coloring"] .project-type', 'تطبيق'], ['#project-coloring-title', 'برنامج تلوين المانجا'],
+    ['[data-project="coloring"] .project-description', 'برنامج لتلوين صفحات المانجا.'],
+    ['[data-project="perfume"] .project-type', 'متجر إلكتروني'], ['#project-perfume-title', 'متجر العطور'],
+    ['[data-project="perfume"] .project-description', 'متجر إلكتروني للعطور.'],
+    ['.project-link', 'اسألني عن المشروع <span aria-hidden="true">↗</span>'],
     ['#faq .eyebrow', 'قبل ما نبدأ'], ['#faq h2', 'أسئلة تستحق<br>إجابات واضحة.'],
     ['#faq .section-top > p', 'توقعات واضحة.<br>من أول محادثة.'],
     ['#faq details:nth-child(1) summary', 'نبدأ إزاي؟'],

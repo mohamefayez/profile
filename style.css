@@ -49,6 +49,24 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-weight:600}p{font-size:17px;line-height:1.
 @media(max-width:760px){.scroll-motion-ready [data-scroll="heading"],.scroll-motion-ready [data-scroll="step"]{transform:translateY(calc((1 - var(--p)) * 22px));}.scroll-motion-ready.scroll-motion-reduced [data-scroll]{transform:none}}
 @media print{.reading-progress{display:none}.scroll-motion-ready [data-scroll],.scroll-motion-ready .about h2 .scroll-word{opacity:1;transform:none}.name-track{animation:none}}
 
+/* Project illustrations represent each subject; they are not product screenshots. */
+.projects{border-top:1px solid #333336;scroll-margin-top:78px}
+.project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.project-card{min-width:0;display:flex;flex-direction:column}
+.project-art{aspect-ratio:9/7;background:var(--paper);border-radius:22px;overflow:hidden}
+.project-art svg{width:100%;height:100%;display:block}
+.project-copy{display:flex;flex-direction:column;flex:1;padding:25px 2px 0}
+.project-type{font-size:11px;color:#a1a1a6;margin-bottom:12px}
+.project-copy h3{font-size:clamp(23px,2.2vw,31px);letter-spacing:-.7px;line-height:1.25;margin-bottom:12px}
+.project-description{font-size:14px;line-height:1.7;max-width:32ch;margin-bottom:22px}
+.project-link{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:48px;margin-top:auto;padding-block:12px;border-top:1px solid #3d3d41;font-size:12px;color:var(--link)}
+.project-link span{font-size:20px;transition:transform .2s}
+.project-link:hover{text-decoration:underline;text-underline-offset:4px}
+.project-link:hover span{transform:translate(2px,-2px)}
+[dir="rtl"] .project-copy h3{letter-spacing:0;font-size:clamp(23px,2vw,29px)}
+@media(min-width:761px) and (max-width:1000px){nav{gap:22px}.language-toggle{margin-inline-end:20px}.project-grid{gap:20px}.project-copy h3{font-size:23px}}
+@media(max-width:760px){.project-grid{grid-template-columns:1fr;gap:42px}.project-art{aspect-ratio:4/3}.project-art svg{max-height:310px}.project-copy{padding-top:22px}.project-copy h3{font-size:29px}.project-description{max-width:none}.project-link{font-size:13px}[dir="rtl"] .project-copy h3{font-size:27px}}
+
 /* Transparent suit portrait stays in front of the rightward name loop. */
 .hero-person{height:calc(100% - 170px);width:auto;max-width:none;aspect-ratio:1122/1402;bottom:58px;left:50%;filter:grayscale(1) brightness(.915)}
 .hero-person svg{height:100%;width:100%;overflow:visible}
