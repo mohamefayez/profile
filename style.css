@@ -193,3 +193,15 @@ html[lang="ar"]{font-family:'Noto Sans Arabic',Tahoma,Arial,sans-serif}
 @media(max-width:760px){.laptop-lid,.app-window,.phone,.product-inset{box-shadow:0 6px 10px #17171924}}
 
 .manga-capture{aspect-ratio:1586/765}.manga-capture>img{width:100.88272%;top:-11.11111%}
+
+/* Compact local technology marks, with room for labels in both languages. */
+.tech-icon{display:block;width:22px;height:22px;flex:0 0 auto;fill:currentColor}
+.tech-band>.wrap{display:grid;grid-template-columns:160px minmax(0,1fr);gap:32px}
+.tech-band .wrap>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:25px 28px}
+.tech-band .wrap>div>.tech-item{display:flex;align-items:center;gap:12px;font-size:17px;letter-spacing:-.35px;white-space:nowrap}
+.tech-band .tech-icon{width:27px;height:27px}
+.skill-list li{display:flex;align-items:center;gap:9px;font-size:12px;padding:10px 13px;color:#d8d8dd}
+.skill-list .tech-icon{width:18px;height:18px}
+.skill-symbol .tech-icon{width:46px;height:46px}
+@media(max-width:1100px){.tech-band>.wrap{grid-template-columns:1fr;gap:24px}}
+@media(max-width:760px){.tech-band .wrap>div{width:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:23px 16px}.tech-band .wrap>div>.tech-item{font-size:15px;gap:10px}.tech-band .tech-icon{width:24px;height:24px}.skill-list{gap:9px}.skill-list li{padding:9px 11px}.skill-symbol .tech-icon{width:40px;height:40px}}
