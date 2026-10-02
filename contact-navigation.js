@@ -29,22 +29,25 @@ document.querySelector('#contact-form').addEventListener('submit', event => {
   const backToTop = document.querySelector('.back-to-top');
   const links = [...navigation.querySelectorAll('a[href^="#"]')];
   const sections = links.map(link => document.querySelector(link.getAttribute('href')));
-  let frame = 0;
+  let frame = 0, tops = [], active = -2, scrolled = false, showBack = false;
   function update() {
     frame = 0;
-    header.classList.toggle('is-scrolled', window.scrollY > 40);
-    backToTop.hidden = window.scrollY < 600;
+    const y = window.scrollY;
+    if(scrolled !== (y > 40)) {scrolled = y > 40; header.classList.toggle('is-scrolled', scrolled);}
+    if(showBack !== (y >= 600)) {showBack = y >= 600; backToTop.hidden = !showBack;}
     const marker = window.innerHeight * .35;
     let current = -1;
-    sections.forEach((section, index) => { if(section.getBoundingClientRect().top <= marker) current = index; });
-    links.forEach((link,index) => { if(index === current) link.setAttribute('aria-current','location'); else link.removeAttribute('aria-current'); });
+    tops.forEach((top, index) => { if(top <= window.scrollY + marker) current = index; });
+    if(current !== active) {active = current; links.forEach((link,index) => { if(index === current) link.setAttribute('aria-current','location'); else link.removeAttribute('aria-current'); });}
   }
   window.addEventListener('scroll', () => { if(!frame) frame=requestAnimationFrame(update); }, {passive:true});
-  window.addEventListener('resize',update);
-  document.addEventListener('portfolio:language',update);
+  function measure() {tops = sections.map(section => section.getBoundingClientRect().top + scrollY); update();}
+  window.addEventListener('resize',measure);
+  document.addEventListener('portfolio:language',measure);
+  new ResizeObserver(measure).observe(document.body);
   backToTop.addEventListener('click', () => {
     window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
     document.querySelector('.brand').focus({preventScroll:true});
   });
-  update();
+  measure();
 })();

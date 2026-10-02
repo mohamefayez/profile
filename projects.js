@@ -1,7 +1,7 @@
-// Device frames use the owner's original screenshots, with no reconstructed UI.
+// Original screenshots with explicitly labeled illustrative manga samples.
 (() => {
   const shots = {
-    manga: [{file:'manga-colored', kind:'browser', en:'Home page', ar:'الصفحة الرئيسية'}],
+    manga: [{file:'manga-colored-v2', extension:'jpg', kind:'manga', en:'Home page', ar:'الصفحة الرئيسية'}],
     coloring: [{file:'manga-colorizer', kind:'app', en:'Coloring workspace', ar:'مساحة عمل التلوين'}],
     perfume: [
       {file:'asel-home', kind:'browser', en:'Store home page', ar:'الصفحة الرئيسية للمتجر'},
@@ -22,10 +22,14 @@
     const surface = document.createElement('div');
     surface.className = `screen-surface ${shot.kind}-capture`;
     const img = document.createElement('img');
-    img.src = `assets/projects/${shot.file}.png`;
+    img.src = `assets/projects/${shot.file}.${shot.extension || 'png'}`;
     img.alt = `${title} — ${arabic() ? shot.ar : shot.en}`;
-    surface.append(img); area.replaceChildren(surface);
-    dialog.querySelector('.preview-counter').textContent = `${arabic() ? shot.ar : shot.en} · ${index+1} / ${list.length}`;
+    surface.append(img);
+    const sample = document.querySelector('[data-project="' + selected + '"] .color-sample');
+    if(sample) surface.append(sample.cloneNode(true));
+    area.replaceChildren(surface);
+    const note = selected === 'coloring' ? (arabic() ? ' — عينة توضيحية' : ' — illustrative artwork') : '';
+    dialog.querySelector('.preview-counter').textContent = `${arabic() ? shot.ar : shot.en}${note} · ${index+1} / ${list.length}`;
     previous.hidden = next.hidden = list.length === 1;
   }
   function syncLabels() {

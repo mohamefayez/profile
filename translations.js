@@ -11,6 +11,7 @@
     ['[data-project="perfume"] .project-type', 'متجر إلكتروني'], ['#project-perfume-title', 'Asel Cosmetics'],
     ['[data-project="perfume"] .project-description', 'واجهة متجر عطور بالعربية والإنجليزية لاستكشاف مجموعة المنتجات.'],
     ['.preview-caption', 'عرض الصور <span aria-hidden="true">↗</span>'],
+    ['.sample-note', 'أُضيفت رسمة توضيحية لمعاينة المشروع.'],
     ['.project-demo', 'زيارة معاينة المتجر <span aria-hidden="true">↗</span>'],
     ['.preview-close', 'إغلاق <span aria-hidden="true">×</span>'],
     ['.preview-prev', 'السابق'], ['.preview-next', 'التالي'],

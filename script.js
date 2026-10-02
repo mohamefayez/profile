@@ -27,97 +27,47 @@ new IntersectionObserver(entries => { heroVisible = entries[0].isIntersecting; u
 updateMotion();
 document.addEventListener('portfolio:language', updateMotion);
 
-// Scroll choreography: progressive, reversible, and driven by actual scroll position.
-// Content stays visible without JavaScript. Only nearby elements are measured per frame.
+// Reveal small content groups once; large screenshot surfaces stay still.
+// IntersectionObserver replaces per-frame geometry reads and word-by-word repainting.
 (() => {
   const root = document.documentElement;
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const targets = [];
-  const add = (selector, kind) => document.querySelectorAll(selector).forEach(element => {
-    element.dataset.scroll = kind;
-    targets.push(element);
-  });
-  add('.section-top', 'heading');
-  add('.service-visual', 'media');
-  add('.service-copy', 'copy');
-  add('.project-card', 'panel');
-  add('.expertise-content', 'panel');
-  add('.process li', 'step');
-  add('.contact-copy', 'heading');
-  add('.social-links, .bottom-socials', 'icons');
-  document.querySelectorAll('.process li').forEach((element, index) => {
-    element.style.setProperty('--scroll-delay', String(index * .07));
-  });
-
-  const statement = document.querySelector('.about-main h2');
-  // Preserve the original heading and line breaks for assistive technology.
-  let words = [];
-  function prepareStatement() {
-  const walker = document.createTreeWalker(statement, NodeFilter.SHOW_TEXT);
-  const textNodes = [];
-  while (walker.nextNode()) textNodes.push(walker.currentNode);
-  textNodes.forEach(node => {
-    const fragment = document.createDocumentFragment();
-    node.textContent.split(/(\s+)/).forEach(part => {
-      if (!part.trim()) { fragment.append(document.createTextNode(part)); return; }
-      const word = document.createElement('span');
-      word.className = 'scroll-word'; word.textContent = part; fragment.append(word);
-    });
-    node.replaceWith(fragment);
-  });
-  words = [...statement.querySelectorAll('.scroll-word')];
-  }
-  prepareStatement();
-  const nearby = new Set();
-  const clamp = value => Math.min(1, Math.max(0, value));
-  let frame = 0;
-  let pageHeight = document.documentElement.scrollHeight;
-  const progressBar = document.querySelector('.reading-progress');
-  function render() {
-    frame = 0;
-    const viewport = window.innerHeight;
-    const readings = [...nearby].map(element => [element, element.getBoundingClientRect()]);
-    const headingRect = statement.getBoundingClientRect();
-    const headingProgress = clamp((viewport * .9 - headingRect.top) / (viewport * .58));
-    // Batch layout reads before style writes; nothing intercepts wheel or touch input.
-    readings.forEach(([element, rect]) => {
-      const distance = Math.min(rect.height * .55 + 110, viewport * .46);
-      const progress = clamp((viewport * .96 - rect.top) / distance);
-      element.style.setProperty('--scroll-progress', progress.toFixed(4));
-    });
-    words.forEach((word, index) => {
-      const progress = clamp(headingProgress * (words.length + 3) - index);
-      word.style.setProperty('--word-light', (.3 + progress * .7).toFixed(3));
-    });
-    progressBar.style.transform = `scaleX(${clamp(window.scrollY / Math.max(1, pageHeight - viewport))})`;
-  }
-  function schedule() { if (!frame) frame = requestAnimationFrame(render); }
-  document.addEventListener('portfolio:language', () => { prepareStatement(); pageHeight = root.scrollHeight; schedule(); });
+  const preference = matchMedia('(prefers-reduced-motion: reduce)');
+  const targets = [...document.querySelectorAll('.section-top, .service-copy, .project-copy, .process li, .contact-copy, .social-links, .bottom-socials, .about-main')];
+  targets.forEach(element => element.dataset.scroll = 'reveal');
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) nearby.add(entry.target);
-      else {
-        nearby.delete(entry.target);
-        entry.target.style.setProperty('--scroll-progress', entry.boundingClientRect.top < 0 ? '1' : '0');
-      }
+    entries.forEach(({target, isIntersecting}) => {
+      if (!isIntersecting) return;
+      target.classList.add('is-revealed');
+      observer.unobserve(target);
     });
-    schedule();
-  }, { rootMargin: '160px 0px' });
-  targets.forEach(element => observer.observe(element));
-  // Reduced-motion uses light/opacity changes with no spatial movement.
-  const syncPreference = () => { root.classList.toggle('scroll-motion-reduced', reducedMotion.matches); schedule(); };
-  reducedMotion.addEventListener('change', syncPreference);
-  syncPreference();
+  }, {threshold: .06, rootMargin:'0px 0px -24px 0px'});
+  function syncPreference() {
+    root.classList.toggle('scroll-motion-reduced', preference.matches);
+    if (preference.matches) {
+      targets.forEach(element => element.classList.add('is-revealed'));
+      observer.disconnect();
+    } else targets.filter(element => !element.classList.contains('is-revealed')).forEach(element => observer.observe(element));
+  }
   root.classList.add('scroll-motion-ready');
-  window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', () => { pageHeight = root.scrollHeight; schedule(); });
-  new ResizeObserver(() => { pageHeight = root.scrollHeight; schedule(); }).observe(document.body);
-  // A keyboard-focused control is always fully visible, even during a fast anchor jump.
+  preference.addEventListener('change', syncPreference); syncPreference();
   document.addEventListener('focusin', event => {
     const target = event.target.closest('[data-scroll]');
-    if (target) target.style.setProperty('--scroll-progress', '1');
+    if(target) {target.classList.add('is-revealed'); observer.unobserve(target);}
   });
-  schedule();
+  const progressBar = document.querySelector('.reading-progress');
+  let frame = 0, scrollRange = 1, previous = -1;
+  function render() {
+    frame = 0;
+    const progress = Math.min(1, Math.max(0, scrollY / scrollRange));
+    if(progress !== previous) {progressBar.style.transform = 'scaleX(' + progress + ')'; previous = progress;}
+  }
+  function schedule() {if(!frame) frame = requestAnimationFrame(render);}
+  function measure() {scrollRange = Math.max(1, root.scrollHeight - innerHeight); schedule();}
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', measure);
+  new ResizeObserver(measure).observe(document.body);
+  document.addEventListener('portfolio:language', measure);
+  measure();
 })();
 
 // Supply the owner's exact profile URLs here. Empty entries remain visibly unavailable.
