@@ -27,53 +27,91 @@ new IntersectionObserver(entries => { heroVisible = entries[0].isIntersecting; u
 updateMotion();
 document.addEventListener('portfolio:language', updateMotion);
 
-// Replay lightweight reveals on viewport entry; large screenshot surfaces stay still.
-// IntersectionObserver replaces per-frame geometry reads and word-by-word repainting.
+// Scroll-linked choreography: the scroll position determines every frame.
+// Cache untransformed document positions on layout changes, never during scrolling.
 (() => {
   const root = document.documentElement;
   const preference = matchMedia('(prefers-reduced-motion: reduce)');
-  const targets = [...document.querySelectorAll('.section-top, .service-visual, .service-copy, .project-copy, .expertise-content, .process li, .contact-copy, .social-links, .bottom-socials, .about-main')];
-  targets.forEach(element => element.dataset.scroll = 'reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(({target, isIntersecting, intersectionRatio}) => {
-      if (!isIntersecting && !target.getAnimations().some(animation => animation.playState === 'running')) target.classList.remove('is-revealed');
-      else if (intersectionRatio >= .08) target.classList.add('is-revealed');
-    });
-  }, {threshold: [0, .08]});
-  function syncPreference() {
-    observer.disconnect();
-    root.classList.toggle('scroll-motion-reduced', preference.matches);
-    targets.forEach(element => {
-      element.classList.remove('is-revealed');
-      observer.observe(element);
-    });
-  }
-  root.classList.add('scroll-motion-ready');
-  preference.addEventListener('change', syncPreference); syncPreference();
-  targets.forEach(element => element.addEventListener('animationend', event => {
-    if(event.target !== element) return;
-    // One check at animation completion avoids edge jitter and resets fast scroll exits.
-    const rect = element.getBoundingClientRect();
-    if(rect.bottom <= 0 || rect.top >= innerHeight) element.classList.remove('is-revealed');
-  }));
-  document.addEventListener('focusin', event => {
-    const target = event.target.closest('[data-scroll]');
-    if(target) target.classList.add('is-revealed');
+  const targets = [];
+  const add = (selector, kind) => document.querySelectorAll(selector).forEach(element => {
+    element.dataset.scroll = kind;
+    targets.push({element, top:0, height:0, last:-1});
   });
+  add('.section-top, .contact-copy', 'heading');
+  add('.service-visual', 'media');
+  add('.service-copy, .project-copy', 'copy');
+  add('.project-preview', 'image');
+  add('.expertise-content', 'panel');
+  add('.process li', 'step');
+  add('.social-links, .bottom-socials', 'icons');
+  const byElement = new Map(targets.map(target => [target.element, target]));
+  const clamp = value => Math.min(1, Math.max(0, value));
+  const statement = document.querySelector('.about-main h2');
+  let words = [], wordLevels = [], statementTop = 0;
+  function prepareWords() {
+    const walker = document.createTreeWalker(statement, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while(walker.nextNode()) if(!walker.currentNode.parentElement.closest('.scroll-word')) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      const fragment = document.createDocumentFragment();
+      node.textContent.split(/(\s+)/).forEach(part => {
+        if(!part.trim()) {fragment.append(document.createTextNode(part)); return;}
+        const word = document.createElement('span');
+        word.className = 'scroll-word'; word.textContent = part; fragment.append(word);
+      });
+      node.replaceWith(fragment);
+    });
+    words = [...statement.querySelectorAll('.scroll-word')];
+    wordLevels = words.map(() => -1);
+  }
+  // offsetTop does not include our visual transforms, so motion cannot feed back into its own input.
+  function documentTop(element) {
+    let top = 0;
+    for(let current = element; current; current = current.offsetParent) top += current.offsetTop;
+    return top;
+  }
+  let frame = 0, layoutDirty = true, scrollRange = 1, viewport = innerHeight, lastBar = -1;
   const progressBar = document.querySelector('.reading-progress');
-  let frame = 0, scrollRange = 1, previous = -1;
+  function progressFor(target, y) {
+    const distance = Math.min(target.height * .55 + 110, viewport * .46);
+    return Math.round(clamp((viewport * .96 - (target.top-y)) / distance) * 1000) / 1000;
+  }
+  function apply(target, value) {
+    if(value !== target.last) {
+      target.element.style.setProperty('--scroll-progress', String(value));
+      target.last = value;
+    }
+  }
   function render() {
     frame = 0;
-    const progress = Math.min(1, Math.max(0, scrollY / scrollRange));
-    if(progress !== previous) {progressBar.style.transform = 'scaleX(' + progress + ')'; previous = progress;}
+    if(layoutDirty) {
+      layoutDirty = false; viewport = innerHeight;
+      targets.forEach(target => {target.top = documentTop(target.element); target.height = target.element.offsetHeight;});
+      statementTop = documentTop(statement);
+      scrollRange = Math.max(1, root.scrollHeight - viewport);
+    }
+    const y = scrollY;
+    targets.forEach(target => apply(target, progressFor(target,y)));
+    const statementProgress = clamp((viewport * .9 - (statementTop-y)) / (viewport * .58));
+    words.forEach((word, index) => {
+      const value = Math.round((.3 + clamp(statementProgress * (words.length+3)-index)*.7)*100)/100;
+      if(value !== wordLevels[index]) {word.style.setProperty('--word-light',String(value)); wordLevels[index]=value;}
+    });
+    const bar = Math.round(clamp(y/scrollRange)*10000)/10000;
+    if(bar !== lastBar) {progressBar.style.transform='scaleX('+bar+')'; lastBar=bar;}
   }
-  function schedule() {if(!frame) frame = requestAnimationFrame(render);}
-  function measure() {scrollRange = Math.max(1, root.scrollHeight - innerHeight); schedule();}
-  addEventListener('scroll', schedule, {passive:true});
-  addEventListener('resize', measure);
-  new ResizeObserver(measure).observe(document.body);
-  document.addEventListener('portfolio:language', measure);
-  measure();
+  function schedule() {if(!frame) frame=requestAnimationFrame(render);}
+  function invalidate() {layoutDirty=true; schedule();}
+  const syncPreference = () => {root.classList.toggle('scroll-motion-reduced',preference.matches);schedule();};
+  preference.addEventListener('change',syncPreference);syncPreference();
+  prepareWords();root.classList.add('scroll-motion-ready');
+  addEventListener('scroll',schedule,{passive:true});
+  addEventListener('resize',invalidate);
+  new ResizeObserver(invalidate).observe(document.body);
+  document.fonts?.ready.then(invalidate);
+  document.addEventListener('portfolio:language',()=>{prepareWords();invalidate();});
+  document.addEventListener('focusin',event=>{const target=byElement.get(event.target.closest('[data-scroll]'));if(target)apply(target,1);});
+  schedule();
 })();
 
 // Supply the owner's exact profile URLs here. Empty entries remain visibly unavailable.
