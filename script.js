@@ -27,32 +27,38 @@ new IntersectionObserver(entries => { heroVisible = entries[0].isIntersecting; u
 updateMotion();
 document.addEventListener('portfolio:language', updateMotion);
 
-// Reveal small content groups once; large screenshot surfaces stay still.
+// Replay lightweight reveals on viewport entry; large screenshot surfaces stay still.
 // IntersectionObserver replaces per-frame geometry reads and word-by-word repainting.
 (() => {
   const root = document.documentElement;
   const preference = matchMedia('(prefers-reduced-motion: reduce)');
-  const targets = [...document.querySelectorAll('.section-top, .service-copy, .project-copy, .process li, .contact-copy, .social-links, .bottom-socials, .about-main')];
+  const targets = [...document.querySelectorAll('.section-top, .service-visual, .service-copy, .project-copy, .expertise-content, .process li, .contact-copy, .social-links, .bottom-socials, .about-main')];
   targets.forEach(element => element.dataset.scroll = 'reveal');
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(({target, isIntersecting}) => {
-      if (!isIntersecting) return;
-      target.classList.add('is-revealed');
-      observer.unobserve(target);
+    entries.forEach(({target, isIntersecting, intersectionRatio}) => {
+      if (!isIntersecting && !target.getAnimations().some(animation => animation.playState === 'running')) target.classList.remove('is-revealed');
+      else if (intersectionRatio >= .08) target.classList.add('is-revealed');
     });
-  }, {threshold: .06, rootMargin:'0px 0px -24px 0px'});
+  }, {threshold: [0, .08]});
   function syncPreference() {
+    observer.disconnect();
     root.classList.toggle('scroll-motion-reduced', preference.matches);
-    if (preference.matches) {
-      targets.forEach(element => element.classList.add('is-revealed'));
-      observer.disconnect();
-    } else targets.filter(element => !element.classList.contains('is-revealed')).forEach(element => observer.observe(element));
+    targets.forEach(element => {
+      element.classList.remove('is-revealed');
+      observer.observe(element);
+    });
   }
   root.classList.add('scroll-motion-ready');
   preference.addEventListener('change', syncPreference); syncPreference();
+  targets.forEach(element => element.addEventListener('animationend', event => {
+    if(event.target !== element) return;
+    // One check at animation completion avoids edge jitter and resets fast scroll exits.
+    const rect = element.getBoundingClientRect();
+    if(rect.bottom <= 0 || rect.top >= innerHeight) element.classList.remove('is-revealed');
+  }));
   document.addEventListener('focusin', event => {
     const target = event.target.closest('[data-scroll]');
-    if(target) {target.classList.add('is-revealed'); observer.unobserve(target);}
+    if(target) target.classList.add('is-revealed');
   });
   const progressBar = document.querySelector('.reading-progress');
   let frame = 0, scrollRange = 1, previous = -1;

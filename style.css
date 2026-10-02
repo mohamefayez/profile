@@ -32,13 +32,18 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-weight:600}p{font-size:17px;line-height:1.
 .bottom-socials a:hover{color:var(--blue);border-color:var(--blue)}
 .bottom-socials svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 
-/* One-time compositor-friendly reveals; no scroll-linked image scaling. */
+/* Replaying compositor-friendly reveals; no scroll-linked image scaling. */
 .reading-progress{position:fixed;z-index:30;top:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;pointer-events:none}
-.scroll-motion-ready [data-scroll]{opacity:.7;transform:translateY(10px);transition:opacity .32s ease,transform .32s ease}
-.scroll-motion-ready [data-scroll].is-revealed,.scroll-motion-ready [data-scroll]:focus-within{opacity:1;transform:none}
-.scroll-motion-ready.scroll-motion-reduced [data-scroll]{opacity:1;transform:none;transition:none}
-@media(max-width:760px){.scroll-motion-ready [data-scroll]{transform:translateY(6px)}.scroll-motion-ready [data-scroll].is-revealed,.scroll-motion-ready [data-scroll]:focus-within,.scroll-motion-ready.scroll-motion-reduced [data-scroll]{transform:none}}
-@media print{.reading-progress{display:none}.scroll-motion-ready [data-scroll]{opacity:1;transform:none}.name-track{animation:none}}
+.scroll-motion-ready [data-scroll]{--reveal-distance:24px;opacity:.45}
+.scroll-motion-ready [data-scroll].is-revealed{opacity:1;animation:content-reveal .55s cubic-bezier(.2,.65,.3,1) both}
+.scroll-motion-ready [data-scroll]:focus-within{opacity:1;animation:none}
+@keyframes content-reveal{from{opacity:.45;transform:translateY(var(--reveal-distance))}to{opacity:1;transform:none}}
+.scroll-motion-ready.scroll-motion-reduced [data-scroll]{transform:none}
+.scroll-motion-ready.scroll-motion-reduced [data-scroll].is-revealed{animation:content-fade .5s ease both}
+.scroll-motion-ready.scroll-motion-reduced [data-scroll]:focus-within{opacity:1;animation:none}
+@keyframes content-fade{from{opacity:.45}to{opacity:1}}
+@media(max-width:760px){.scroll-motion-ready [data-scroll]{--reveal-distance:16px}}
+@media print{.reading-progress{display:none}.scroll-motion-ready [data-scroll]{opacity:1!important;transform:none!important;animation:none!important}.name-track{animation:none}}
 
 /* Real screenshots in CSS device frames; the original images stay intact. */
 .projects{border-top:1px solid #333336;scroll-margin-top:78px}
