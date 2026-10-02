@@ -53,6 +53,12 @@
   });
   previous.addEventListener('click', () => change(-1)); next.addEventListener('click', () => change(1));
   dialog.addEventListener('keydown', event => {
+    if(event.key === 'Tab') {
+      const controls = [...dialog.querySelectorAll('button:not([hidden])')];
+      const first = controls[0], last = controls[controls.length-1];
+      if(event.shiftKey && document.activeElement === first) {event.preventDefault(); last.focus();}
+      else if(!event.shiftKey && document.activeElement === last) {event.preventDefault(); first.focus();}
+    }
     if(event.key === 'ArrowRight' || event.key === 'ArrowLeft') { event.preventDefault(); change((event.key === 'ArrowRight' ? 1 : -1) * (arabic() ? -1 : 1)); }
   });
   document.addEventListener('portfolio:language', syncLabels); syncLabels();

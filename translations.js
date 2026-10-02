@@ -107,6 +107,8 @@
     en: {pause:'Pause motion',resume:'Resume motion',pauseLabel:'Pause name animation',resumeLabel:'Resume name animation',status:'Your draft is ready. Review it in WhatsApp and press Send there.',retry:'Open WhatsApp',invalid:'Please enter your name and a short description of your project.'},
     ar: {pause:'إيقاف الحركة',resume:'تشغيل الحركة',pauseLabel:'إيقاف حركة الاسم',resumeLabel:'تشغيل حركة الاسم',status:'رسالتك جاهزة. افتحها في واتساب وراجعها قبل الضغط على إرسال.',retry:'فتح واتساب',invalid:'من فضلك اكتب اسمك ونبذة عن مشروعك.'}
   };
+  Object.assign(messages.en, {nameRequired:'Please enter your name, not only spaces.', messageRequired:'Please write a short description of your project.'});
+  Object.assign(messages.ar, {nameRequired:'اكتب اسمك، وليس مسافات فقط.', messageRequired:'اكتب نبذة قصيرة عن مشروعك.'});
   const skillsAr = {
     frontend:{title:'واجهات مريحة في الاستخدام.',description:'تجارب متجاوبة وسهلة الوصول، بمكوّنات قابلة لإعادة الاستخدام وتفاعلات مدروسة وأداء سريع.'},
     backend:{title:'أساس قوي. وتكامل سلس.',description:'منطق خادم منظم، وواجهات برمجية واضحة، وتسجيل دخول آمن يربط الواجهة بالخدمات التي تحتاجها.'},

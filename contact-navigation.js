@@ -1,12 +1,36 @@
 document.addEventListener('portfolio:language', () => { selectTab(tabs.find(tab=>tab.getAttribute('aria-selected')==='true') || tabs[0]); closeMenu(); });
 selectTab(tabs[0]);
 
+function clearBriefError(field) {
+  if(field?.getAttribute('aria-invalid') !== 'true') return;
+  field.setCustomValidity('');
+  field.removeAttribute('aria-invalid');
+  field.removeAttribute('aria-describedby');
+  document.querySelector('#form-status').textContent = '';
+}
+document.querySelector('#contact-form').addEventListener('input', event => clearBriefError(event.target));
+document.querySelector('#contact-form').addEventListener('reset', () => {
+  document.querySelectorAll('#contact-form [aria-invalid="true"]').forEach(clearBriefError);
+});
+document.addEventListener('portfolio:language', () => {
+  document.querySelectorAll('#contact-form [aria-invalid="true"]').forEach(clearBriefError);
+});
 document.querySelector('#contact-form').addEventListener('submit', event => {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
   const name = String(data.get('name')).trim(), email = String(data.get('email')).trim(), message = String(data.get('message')).trim();
   const status = document.querySelector('#form-status');
-  if (!name || !message) { status.textContent = i18n.t('invalid'); return; }
+  if (!name || !message) {
+    const field = document.querySelector(!name ? '#name' : '#message');
+    const error = i18n.t(!name ? 'nameRequired' : 'messageRequired');
+    status.textContent = error;
+    field.setCustomValidity(error);
+    field.setAttribute('aria-invalid', 'true');
+    field.setAttribute('aria-describedby', 'form-status');
+    field.focus();
+    field.reportValidity();
+    return;
+  }
   const brief = i18n.language === 'ar'
     ? `مرحبًا محمد، أود مناقشة مشروع معك.\n\nالاسم: ${name}\nالبريد الإلكتروني: ${email}\n\nتفاصيل المشروع:\n${message}`
     : `Hi Mohamed, I'd like to discuss a project.\n\nName: ${name}\nEmail: ${email}\n\nProject details:\n${message}`;
